@@ -100,6 +100,14 @@ export const App: React.FC = () => {
           if (parsed.profile?.defaults?.rate === 25000) {
             parsed.profile.defaults.rate = 100000;
           }
+          if (parsed.profile?.issuer) {
+            if (parsed.profile.issuer.phone === undefined) {
+              parsed.profile.issuer.phone = DEFAULT_INVOICE_STATE.profile.issuer.phone;
+            }
+            if (parsed.profile.issuer.address === undefined) {
+              parsed.profile.issuer.address = DEFAULT_INVOICE_STATE.profile.issuer.address;
+            }
+          }
           return parsed;
         }
       }
@@ -542,6 +550,28 @@ export const App: React.FC = () => {
                       onChange={(e) => updateIssuer('email', e.target.value)}
                       placeholder="john.doe@example.com"
                       className="w-full px-3 py-1.5 rounded-lg border border-slate-200 focus:outline-hidden focus:ring-1 focus:ring-indigo-500 text-slate-700"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-2xs font-semibold text-slate-400 mb-0.5">Contact Number</label>
+                    <input
+                      type="tel"
+                      value={profile.issuer.phone || ''}
+                      onChange={(e) => updateIssuer('phone', e.target.value)}
+                      placeholder="+91 98765 43210"
+                      className="w-full px-3 py-1.5 rounded-lg border border-slate-200 focus:outline-hidden focus:ring-1 focus:ring-indigo-500 text-slate-700"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-2xs font-semibold text-slate-400 mb-0.5">Address</label>
+                    <textarea
+                      rows={3}
+                      value={profile.issuer.address || ''}
+                      onChange={(e) => updateIssuer('address', e.target.value)}
+                      placeholder="Bangalore, Karnataka, India"
+                      className="w-full px-3 py-1.5 rounded-lg border border-slate-200 focus:outline-hidden focus:ring-1 focus:ring-indigo-500 text-slate-700 text-xs resize-none leading-relaxed"
                     />
                   </div>
                 </div>
