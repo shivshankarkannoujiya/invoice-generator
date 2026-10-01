@@ -34,7 +34,7 @@ const DEFAULT_INVOICE_STATE: {
       name: 'John Doe',
       email: 'john.doe@example.com',
       phone: '+91 98765 43210',
-      address: 'Bangalore, Karnataka, India',
+      address: '123 Demo Street, Apartment 4B\nBengaluru, Karnataka 560001, India',
     },
     client: {
       name: 'Sensiwise AI',
@@ -104,9 +104,25 @@ export const App: React.FC = () => {
             if (parsed.profile.issuer.phone === undefined) {
               parsed.profile.issuer.phone = DEFAULT_INVOICE_STATE.profile.issuer.phone;
             }
-            if (parsed.profile.issuer.address === undefined) {
+            if (
+              !parsed.profile.issuer.address ||
+              parsed.profile.issuer.address === 'Bangalore, Karnataka, India'
+            ) {
               parsed.profile.issuer.address = DEFAULT_INVOICE_STATE.profile.issuer.address;
             }
+            if (parsed.profile.issuer.name?.toLowerCase().includes('shivshankar')) {
+              parsed.profile.issuer.name = 'John Doe';
+              parsed.profile.issuer.email = 'john.doe@example.com';
+              parsed.profile.issuer.phone = '+91 98765 43210';
+              parsed.profile.issuer.address = DEFAULT_INVOICE_STATE.profile.issuer.address;
+            }
+          }
+          if (parsed.profile?.payment?.accountHolder?.toLowerCase().includes('shivshankar')) {
+            parsed.profile.payment.bankName = 'HDFC Bank';
+            parsed.profile.payment.accountNumber = '50100234567890';
+            parsed.profile.payment.ifsc = 'HDFC0001234';
+            parsed.profile.payment.accountType = 'Savings';
+            parsed.profile.payment.accountHolder = 'John Doe';
           }
           // Migrate old address to updated default
           if (parsed.profile?.client?.address?.includes('85 Great Portland Street')) {
@@ -577,7 +593,7 @@ export const App: React.FC = () => {
                       rows={3}
                       value={profile.issuer.address || ''}
                       onChange={(e) => updateIssuer('address', e.target.value)}
-                      placeholder="Bangalore, Karnataka, India"
+                      placeholder="123 Demo Street, Apartment 4B&#10;Bengaluru, Karnataka 560001, India"
                       className="w-full px-3 py-1.5 rounded-lg border border-slate-200 focus:outline-hidden focus:ring-1 focus:ring-indigo-500 text-slate-700 text-xs resize-none leading-relaxed"
                     />
                   </div>

@@ -100,11 +100,9 @@ export const InvoicePreview: React.FC<InvoicePreviewProps> = ({
             {issuer.phone && (
               <p className="text-[11px] text-gray-500 mt-0.5">{issuer.phone}</p>
             )}
-            {issuer.address && (
-              <p className="text-[11px] text-gray-500 whitespace-pre-line leading-relaxed mt-0.5">
-                {issuer.address}
-              </p>
-            )}
+            <p className="text-[11px] text-gray-500 whitespace-pre-line leading-relaxed mt-0.5">
+              {issuer.address || '123 Demo Street, Apartment 4B\nBengaluru, Karnataka 560001, India'}
+            </p>
           </div>
 
           <div className="text-right">
