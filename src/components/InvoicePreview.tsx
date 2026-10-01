@@ -202,12 +202,9 @@ export const InvoicePreview: React.FC<InvoicePreviewProps> = ({
           </div>
         </div>
 
-        {/* ── SPACER ── */}
-        <div className="flex-grow min-h-[30px]" />
-
         {/* ── PAYMENT DETAILS ── */}
-        <div className="text-left mt-6">
-          <div className="flex justify-between items-start mb-3">
+        <div className="text-left mt-8">
+          <div className="flex justify-between items-start mb-2">
             <h4 className="text-[12px] font-bold text-gray-900">Payment Details</h4>
 
             {!isPdfRendering && (
