@@ -38,7 +38,7 @@ const DEFAULT_INVOICE_STATE: {
     },
     client: {
       name: 'Sensiwise AI',
-      address: '85 Great Portland Street\nFirst Floor\nLondon, W1W 7LT, GB',
+      address: '167-169 Great Portland St\nFirst Floor\nLondon, W1W 7LT, GB',
       country: 'GB',
     },
     payment: {
@@ -71,7 +71,7 @@ const DEFAULT_INVOICE_STATE: {
         amount: 100000,
       },
     ],
-    notes: 'Thank you!',
+    notes: 'Thank you for your service.',
     subtotal: 100000,
     total: 100000,
   },
@@ -107,6 +107,13 @@ export const App: React.FC = () => {
             if (parsed.profile.issuer.address === undefined) {
               parsed.profile.issuer.address = DEFAULT_INVOICE_STATE.profile.issuer.address;
             }
+          }
+          // Migrate old address to updated default
+          if (parsed.profile?.client?.address?.includes('85 Great Portland Street')) {
+            parsed.profile.client.address = parsed.profile.client.address.replace(
+              '85 Great Portland Street',
+              '167-169 Great Portland St'
+            );
           }
           return parsed;
         }
@@ -606,7 +613,7 @@ export const App: React.FC = () => {
                       rows={3}
                       value={profile.client.address || ''}
                       onChange={(e) => updateClient('address', e.target.value)}
-                      placeholder="85 Great Portland Street&#10;First Floor&#10;London, W1W 7LT, GB"
+                      placeholder="167-169 Great Portland St&#10;First Floor&#10;London, W1W 7LT, GB"
                       className="w-full px-3 py-1.5 rounded-lg border border-slate-200 focus:outline-hidden focus:ring-1 focus:ring-indigo-500 text-slate-700 text-xs resize-none leading-relaxed"
                     />
                   </div>
